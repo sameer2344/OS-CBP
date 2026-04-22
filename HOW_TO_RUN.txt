@@ -1,0 +1,120 @@
+================================================================================
+  FILE ACCESS CONTROL & PROTECTION SYSTEM — RUN INSTRUCTIONS
+================================================================================
+
+PREREQUISITES
+-------------
+- Java 17 or higher installed
+- Check version: java -version
+
+
+COMPILATION
+-----------
+From the project root directory (where model/, service/, ui/ folders are):
+
+  javac -d . model/*.java service/*.java ui/*.java
+
+This compiles all .java files and places .class files in their respective
+package directories (model/, service/, ui/).
+
+
+RUNNING THE APPLICATION
+-----------------------
+After compilation, run:
+
+  java ui.MainUI
+
+The GUI will launch with a Login/Register screen.
+
+
+DEFAULT CREDENTIALS
+-------------------
+Username: admin
+Password: Admin@123
+
+Other pre-configured users:
+- user1 / User1@123
+- user2 / User2@123
+- guest  / Guest@123
+
+
+FEATURES
+--------
+1. LOGIN/REGISTER SCREEN
+   - Login tab: authenticate with existing credentials
+   - Register tab: create a new account (auto-assigned USER role)
+   - Validation: min 3 chars username, min 6 chars password, no special chars
+
+2. FILE OPERATIONS TAB
+   - View all files with your permissions (rwx)
+   - Read / Write / Execute operations
+   - Create new files (you become the owner)
+
+3. AUDIT LOG TAB
+   - View all access attempts (allowed/denied)
+   - Export to CSV
+   - Clear logs
+
+4. ALERTS TAB
+   - Intrusion detection alerts
+   - Brute force detection
+   - File scan detection
+
+5. ADMIN PANEL (admin only)
+   - List all users
+   - Add new users
+   - Grant/revoke file permissions
+
+6. CHANGE PASSWORD
+   - Click 🔑 button in top bar
+   - Enter current password + new password
+
+
+PERSISTENCE
+-----------
+- users.dat: stores all registered users (survives restarts)
+- audit.log: stores all audit entries
+
+
+TROUBLESHOOTING
+---------------
+1. "Could not find or load main class ui.MainUI"
+   → Make sure you compiled with: javac -d . model/*.java service/*.java ui/*.java
+   → Make sure you're running from the directory containing model/, service/, ui/
+
+2. "package ui does not exist"
+   → You need to compile from the parent directory, not inside ui/
+
+3. GUI doesn't appear
+   → Check if Java GUI libraries are installed (should be included in standard JDK)
+   → Try: java -version (should show JDK, not just JRE)
+
+
+PROJECT STRUCTURE
+-----------------
+model/
+  ├── User.java
+  ├── FileResource.java
+  └── AuditLog.java
+service/
+  ├── AccessControlService.java
+  ├── FileService.java
+  ├── AuditService.java
+  ├── IntrusionService.java
+  └── UserStore.java
+ui/
+  └── MainUI.java
+
+
+NOTES
+-----
+- All new accounts registered via the UI get the USER role by default
+- Admin can grant permissions to any user on any file
+- File owners can grant permissions on their own files
+- ADMIN role has full access to everything
+- MODERATOR can read all files
+- Accounts lock after 3 failed login attempts (5 min lockout)
+- Intrusion detection triggers on repeated access denials
+
+
+Good luck with your viva! 🎓
