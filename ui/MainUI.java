@@ -57,7 +57,7 @@ public class MainUI extends JFrame {
         topBar.setBackground(new Color(40, 40, 60));
         topBar.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
 
-        JLabel title = new JLabel("🔐 File Access Control System");
+        JLabel title = new JLabel("[LOCK] File Access Control System");
         title.setForeground(Color.WHITE);
         title.setFont(new Font("SansSerif", Font.BOLD, 16));
 
@@ -69,7 +69,7 @@ public class MainUI extends JFrame {
         JPanel rightButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
         rightButtons.setOpaque(false);
 
-        JButton changePwdBtn = new JButton("🔑 Change Password");
+        JButton changePwdBtn = new JButton("[KEY] Change Password");
         changePwdBtn.addActionListener(e -> changePasswordDialog());
 
         JButton logoutBtn = new JButton("Logout");
@@ -96,10 +96,10 @@ public class MainUI extends JFrame {
 
         // Tabs
         tabs = new JTabbedPane();
-        tabs.addTab("📁 File Operations", buildFileOpsPanel());
-        tabs.addTab("📋 Audit Log",        buildAuditPanel());
-        tabs.addTab("🚨 Alerts",           buildAlertsPanel());
-        tabs.addTab("⚙️ Admin",            buildAdminPanel());
+        tabs.addTab("[FILES] File Operations", buildFileOpsPanel());
+        tabs.addTab("[LOG] Audit Log",        buildAuditPanel());
+        tabs.addTab("[ALERT] Alerts",           buildAlertsPanel());
+        tabs.addTab("[ADMIN] Admin",            buildAdminPanel());
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(northPanel, BorderLayout.NORTH);
@@ -150,10 +150,10 @@ public class MainUI extends JFrame {
         JPanel opsPanel = new JPanel(new GridLayout(4, 1, 8, 8));
         opsPanel.setBorder(BorderFactory.createTitledBorder("Operations"));
 
-        JButton readBtn   = new JButton("📖 Read");
-        JButton writeBtn  = new JButton("✏️ Write");
-        JButton execBtn   = new JButton("▶️ Execute");
-        JButton createBtn = new JButton("➕ Create File");
+        JButton readBtn   = new JButton("[READ] Read");
+        JButton writeBtn  = new JButton("[WRITE] Write");
+        JButton execBtn   = new JButton("[EXEC] Execute");
+        JButton createBtn = new JButton("[+] Create File");
 
         readBtn.addActionListener(e   -> performOp("READ"));
         writeBtn.addActionListener(e  -> performOp("WRITE"));
@@ -212,8 +212,8 @@ public class MainUI extends JFrame {
         };
 
         String time = java.time.LocalTime.now().toString().substring(0, 8);
-        String line = "[" + time + "] " + (result ? "✅ ALLOWED" : "❌ DENIED")
-            + " — " + op + " on " + filename
+        String line = "[" + time + "] " + (result ? "[OK] ALLOWED" : "[DENY] DENIED")
+            + " -- " + op + " on " + filename
             + "  (user: " + currentUser.getUsername() + ", role: " + currentUser.getRole() + ")\n";
         resultAreaRef.append(line);
         // Auto-scroll to bottom
@@ -222,7 +222,7 @@ public class MainUI extends JFrame {
         if (!result) {
             IntrusionService.ThreatLevel level = intruSvc.evaluate(currentUser.getUsername());
             if (level != IntrusionService.ThreatLevel.NONE) {
-                resultAreaRef.append("  ⚠️  Intrusion threat level: " + level + "\n");
+                resultAreaRef.append("  [!] Intrusion threat level: " + level + "\n");
                 resultAreaRef.setCaretPosition(resultAreaRef.getDocument().getLength());
                 refreshAlerts();
             }
@@ -281,7 +281,7 @@ public class MainUI extends JFrame {
         JTextField filterUser = new JTextField(10);
         String[] statusOpts = {"All", "ALLOWED", "DENIED"};
         JComboBox<String> statusFilter = new JComboBox<>(statusOpts);
-        JButton applyFilter = new JButton("🔍 Filter");
+        JButton applyFilter = new JButton("[FILTER] Filter");
         JButton showAll     = new JButton("Show All");
 
         filterBar.add(new JLabel("User:"));
@@ -306,9 +306,9 @@ public class MainUI extends JFrame {
         showAll.addActionListener(e -> refreshAuditTable());
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton refreshBtn = new JButton("🔄 Refresh");
-        JButton exportBtn  = new JButton("💾 Export CSV");
-        JButton clearBtn   = new JButton("🗑 Clear");
+        JButton refreshBtn = new JButton("[REFRESH] Refresh");
+        JButton exportBtn  = new JButton("[EXPORT] Export CSV");
+        JButton clearBtn   = new JButton("[CLEAR] Clear");
 
         refreshBtn.addActionListener(e -> refreshAuditTable());
         exportBtn.addActionListener(e -> {
@@ -348,7 +348,7 @@ public class MainUI extends JFrame {
         JPanel panel = new JPanel(new BorderLayout(8, 8));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel info = new JLabel("<html><b>Intrusion Detection Alerts</b> — Brute force & scan pattern detection</html>");
+        JLabel info = new JLabel("<html><b>Intrusion Detection Alerts</b> -- Brute force & scan pattern detection</html>");
         info.setBorder(BorderFactory.createEmptyBorder(4, 4, 8, 4));
         panel.add(info, BorderLayout.NORTH);
 
@@ -359,8 +359,8 @@ public class MainUI extends JFrame {
         panel.add(new JScrollPane(alertArea), BorderLayout.CENTER);
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton refreshBtn = new JButton("🔄 Refresh Alerts");
-        JButton clearBtn   = new JButton("🗑 Clear All Alerts");
+        JButton refreshBtn = new JButton("[REFRESH] Refresh Alerts");
+        JButton clearBtn   = new JButton("[CLEAR] Clear All Alerts");
 
         refreshBtn.addActionListener(e -> refreshAlerts());
         clearBtn.addActionListener(e -> {
@@ -379,16 +379,16 @@ public class MainUI extends JFrame {
         var allAlerts = intruSvc.getAllAlerts();
         if (allAlerts.isEmpty()) {
             alertArea.setForeground(new Color(50, 150, 50));
-            alertArea.setText("✅ No active intrusion alerts.");
+            alertArea.setText("[OK] No active intrusion alerts.");
             return;
         }
         alertArea.setForeground(new Color(180, 30, 30));
         StringBuilder sb = new StringBuilder();
         sb.append("=== ACTIVE INTRUSION ALERTS ===\n\n");
         for (var entry : allAlerts.entrySet()) {
-            sb.append("👤 User: ").append(entry.getKey()).append("\n");
+            sb.append("User: ").append(entry.getKey()).append("\n");
             for (String alert : entry.getValue()) {
-                sb.append("   ⚠️  ").append(alert).append("\n");
+                sb.append("   [!] ").append(alert).append("\n");
             }
             sb.append("\n");
         }
@@ -405,9 +405,9 @@ public class MainUI extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JTabbedPane adminTabs = new JTabbedPane();
-        adminTabs.addTab("👥 User Management",      buildUserManagementPanel());
-        adminTabs.addTab("🔐 Access Control Matrix", buildACLMatrixPanel());
-        adminTabs.addTab("📂 File Permissions",      buildFilePermissionsPanel());
+        adminTabs.addTab("[USERS] User Management",      buildUserManagementPanel());
+        adminTabs.addTab("[ACL] Access Control Matrix", buildACLMatrixPanel());
+        adminTabs.addTab("[PERMS] File Permissions",      buildFilePermissionsPanel());
 
         panel.add(adminTabs, BorderLayout.CENTER);
         return panel;
@@ -427,10 +427,10 @@ public class MainUI extends JFrame {
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton refreshBtn    = new JButton("� Refresh");
-        JButton addUserBtn    = new JButton("➕ Add User");
-        JButton changeRoleBtn = new JButton("🔧 Change Role");
-        JButton deactivateBtn = new JButton("🚫 Deactivate");
-        JButton deleteBtn     = new JButton("🗑 Delete");
+        JButton addUserBtn    = new JButton("[+] Add User");
+        JButton changeRoleBtn = new JButton("[ROLE] Change Role");
+        JButton deactivateBtn = new JButton("[X] Deactivate");
+        JButton deleteBtn     = new JButton("[DEL] Delete");
 
         refreshBtn.addActionListener(e    -> refreshUserTable());
         addUserBtn.addActionListener(e    -> addUserDialog());
@@ -522,7 +522,7 @@ public class MainUI extends JFrame {
         matrixTable.setRowHeight(22);
         panel.add(new JScrollPane(matrixTable), BorderLayout.CENTER);
 
-        JButton refreshBtn = new JButton("🔄 Refresh Matrix");
+        JButton refreshBtn = new JButton("[REFRESH] Refresh Matrix");
         refreshBtn.addActionListener(e -> refreshACLMatrix());
         panel.add(refreshBtn, BorderLayout.SOUTH);
         return panel;
@@ -557,9 +557,9 @@ public class MainUI extends JFrame {
         panel.add(new JScrollPane(permArea), BorderLayout.CENTER);
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton viewBtn   = new JButton("🔍 View File Permissions");
-        JButton grantBtn  = new JButton("✅ Grant Permission");
-        JButton revokeBtn = new JButton("🚫 Revoke Permission");
+        JButton viewBtn   = new JButton("[VIEW] View File Permissions");
+        JButton grantBtn  = new JButton("[+] Grant Permission");
+        JButton revokeBtn = new JButton("[-] Revoke Permission");
 
         viewBtn.addActionListener(e -> {
             if (!requireAdmin()) return;

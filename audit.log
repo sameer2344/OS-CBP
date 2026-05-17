@@ -11,3 +11,13 @@
 [2026-04-28 21:52:39] [WARNING ] SYSTEM     | INTRUSION_ALERT | sameer               | DENIED | Repeated access denials detected
 [2026-04-28 21:52:46] [INFO    ] sameer     | EXECUTE  | config.sys           | DENIED
 [2026-04-28 21:52:46] [WARNING ] SYSTEM     | INTRUSION_ALERT | sameer               | DENIED | Repeated access denials detected
+[2026-05-17 17:12:00.738369] [INFO    ] user1      | LOGIN           | SYSTEM               | ALLOWED
+[2026-05-17 17:12:08.658425600] [INFO    ] user1      | READ            | config.sys           | DENIED
+[2026-05-17 17:12:12.528148100] [WARNING ] user1      | WRITE           | data.dat             | DENIED
+[2026-05-17 17:12:18.789703600] [INFO    ] user1      | LOGOUT          | SYSTEM               | ALLOWED
+[2026-05-17 20:13:17.085981700] [INFO    ] user1      | LOGIN           | SYSTEM               | ALLOWED
+[2026-05-17 20:13:47.334151300] [INFO    ] user1      | READ            | data.dat             | DENIED
+[2026-05-17 20:14:07.096811500] [WARNING ] user1      | EXECUTE         | config.sys           | DENIED
+[2026-05-17 20:15:32.344482700] [INFO    ] user1      | LOGOUT          | SYSTEM               | ALLOWED
+[2026-05-17 20:15:41.207292600] [INFO    ] admin      | LOGIN           | SYSTEM               | ALLOWED
+[2026-05-17 20:15:59.605560800] [INFO    ] admin      | READ            | data.dat             | ALLOWED

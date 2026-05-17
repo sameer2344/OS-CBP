@@ -109,6 +109,15 @@ public class AccessControlService {
         return checkPermission(file, user, 'x');
     }
 
+    public boolean checkAccess(User user, FileResource file, char permission) {
+        return switch (permission) {
+            case 'r' -> canRead(file, user);
+            case 'w' -> canWrite(file, user);
+            case 'x' -> canExecute(file, user);
+            default -> false;
+        };
+    }
+
     private boolean checkPermission(FileResource file, User user, char perm) {
         // Inactive or locked users always denied
         if (!user.isActive() || user.isLocked()) return false;

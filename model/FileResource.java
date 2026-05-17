@@ -92,6 +92,7 @@ public class FileResource {
     public String getName()               { return name; }
     public String getPath()               { return path; }
     public String getOwner()              { return owner; }
+    public String getFileName()           { return path + name; }
     public LocalDateTime getCreatedAt()   { return createdAt; }
     public LocalDateTime getLastModified(){ return lastModified; }
     public long getSizeBytes()            { return sizeBytes; }
