@@ -2,3 +2,12 @@
 [2026-04-22 15:42:40] [INFO    ] test       | LOGIN    | SYSTEM               | ALLOWED
 [2026-04-22 15:49:30] [INFO    ] test       | CREATE   | ist                  | ALLOWED
 [2026-04-22 15:49:35] [INFO    ] test       | WRITE    | ist                  | ALLOWED
+[2026-04-28 21:51:41] [INFO    ] sameer     | LOGIN    | SYSTEM               | ALLOWED
+[2026-04-28 21:52:20] [INFO    ] sameer     | READ     | data.dat             | DENIED
+[2026-04-28 21:52:27] [INFO    ] sameer     | READ     | script.sh            | DENIED
+[2026-04-28 21:52:34] [INFO    ] sameer     | EXECUTE  | data.dat             | DENIED
+[2026-04-28 21:52:34] [WARNING ] SYSTEM     | INTRUSION_ALERT | sameer               | DENIED | Repeated access denials detected
+[2026-04-28 21:52:39] [INFO    ] sameer     | WRITE    | config.sys           | DENIED
+[2026-04-28 21:52:39] [WARNING ] SYSTEM     | INTRUSION_ALERT | sameer               | DENIED | Repeated access denials detected
+[2026-04-28 21:52:46] [INFO    ] sameer     | EXECUTE  | config.sys           | DENIED
+[2026-04-28 21:52:46] [WARNING ] SYSTEM     | INTRUSION_ALERT | sameer               | DENIED | Repeated access denials detected
